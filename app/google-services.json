@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "26539241790",
+    "firebase_url": "https://haneentaskmanager2017.firebaseio.com",
+    "project_id": "haneentaskmanager2017",
+    "storage_bucket": "haneentaskmanager2017.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26539241790:android:93376d32a4f88192",
+        "android_client_info": {
+          "package_name": "com.hw.tann.haneen.haneentaskmanager2017"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26539241790-ffltj0d7iusb4vfi4kmiv4lm2t9k29sa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hw.tann.haneen.haneentaskmanager2017",
+            "certificate_hash": "4906703b497fff4632ab3d6891e9267d2d7da650"
+          }
+        },
+        {
+          "client_id": "26539241790-i14s9ssd8tpukvjs3no3bdcecadc9he0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAvl5N2CQ0quCn28EV1WC70Qlb4oevi1o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "26539241790-i14s9ssd8tpukvjs3no3bdcecadc9he0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
