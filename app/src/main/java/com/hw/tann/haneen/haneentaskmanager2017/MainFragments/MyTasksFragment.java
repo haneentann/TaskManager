@@ -42,6 +42,21 @@ public class MyTasksFragment extends Fragment implements Titleable{
         if (taskAdapter == null)
             taskAdapter = new TasksAdapter(getActivity(), R.layout.itm_task);
         taskAdapter.clear();
+        String userEmail = DBUtils.auth.getCurrentUser().getEmail();
+        DBUtils.myTasksRef.orderByChild("uKey").equalTo(userEmail).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                taskAdapter.clear();
+                for(DataSnapshot ds:dataSnapshot.getChildren()){
+                    MyTasks myTasks = ds.getValue(MyTasks.class);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         //// TODO: 17/08/2017 get the data source and set the adapter
 
         Log.d("DD", "KAN !!");

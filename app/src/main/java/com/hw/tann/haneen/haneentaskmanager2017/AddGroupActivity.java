@@ -130,27 +130,34 @@ public class AddGroupActivity extends AppCompatActivity implements View.OnClickL
         }
     }
     private void updateUsers(String gKey){
+        String myEmail = DBUtils.auth.getCurrentUser().getEmail();
+        DBUtils.myUsersRef.child(myEmail.replace('.','*')).child("gKey").child(gKey).setValue(true);
+
         for(int i=0; i<userAdapterSelect.getCount();i++){
             MyUsers myUsers = userAdapterSelect.getItem(i);
-            DBUtils.myUsersRef.child(myUsers.getuKey_email().replace('.','*')).child("groupsKeys").child(gKey).setValue(true);
+            DBUtils.myUsersRef.child(myUsers.getuKey_email().replace('.','*')).child("gKey").child(gKey).setValue(true);
         }
     }
     private void saveGroup(){
+
         String stGroupName = etGroupName.getText().toString();
-        if(stGroupName.length()<2){
+
+        if(stGroupName.length()>2){
             MyGroup myGroup = new MyGroup();
             myGroup.setName(stGroupName);
             String myEmail = DBUtils.auth.getCurrentUser().getEmail();
             myGroup.setMngrUkey(myEmail.replace('.','*'));
             final String gKey = DBUtils.myGroupsRef.push().getKey();
             myGroup.setgKey(gKey);
+          //  Toast.makeText(AddGroupActivity.this,"Saving group "+gKey,Toast.LENGTH_SHORT).show();
 
-            for(int i=0;i<userAdapterSearchResult.getCount();i++)
+            for(int i=0;i<userAdapterSelect.getCount();i++)
             {
                 MyUsers myUsers = userAdapterSelect.getItem(i);
                 myGroup.addUserKey(myUsers.getuKey_email().replace('.','*'));
 
             }
+            //Toast.makeText(AddGroupActivity.this,"Saving group",Toast.LENGTH_SHORT).show();
             DBUtils.myGroupsRef.child(gKey).setValue(myGroup).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {

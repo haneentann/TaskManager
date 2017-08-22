@@ -1,17 +1,21 @@
 package com.hw.tann.haneen.haneentaskmanager2017.MainFragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.hw.tann.haneen.haneentaskmanager2017.GroupActivity;
 import com.hw.tann.haneen.haneentaskmanager2017.R;
 import com.hw.tann.haneen.haneentaskmanager2017.data.DBUtils;
 import com.hw.tann.haneen.haneentaskmanager2017.data.GroupAdapter;
@@ -22,7 +26,7 @@ import java.util.HashMap;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyGroupsFragment extends Fragment implements Titleable{
+public class MyGroupsFragment extends Fragment implements Titleable, AdapterView.OnItemClickListener{
     private ListView lstVGroups;
     private GroupAdapter groupAdapter;
 
@@ -37,6 +41,7 @@ public class MyGroupsFragment extends Fragment implements Titleable{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_groups, container, false);
         lstVGroups = (ListView) view.findViewById(R.id.lstGroups);
+        lstVGroups.setOnItemClickListener(this);
         //// TODO: 16/08/2017 connect the list view to the data source by adapter
         groupAdapter = new GroupAdapter(getActivity(), R.layout.itm_groups);
         initListView();
@@ -45,8 +50,9 @@ public class MyGroupsFragment extends Fragment implements Titleable{
 
     private void initListView() {
 
+
         String userEmail = DBUtils.auth.getCurrentUser().getEmail();
-        DBUtils.myUsersRef.child(userEmail.replace('.','*')+"/groupsKeys").addValueEventListener(new ValueEventListener() {
+        DBUtils.myUsersRef.child(userEmail.replace('.','*')+"/gKey").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 HashMap<String,Object> groupKeys=(HashMap<String,Object>) dataSnapshot.getValue();
@@ -91,5 +97,13 @@ public class MyGroupsFragment extends Fragment implements Titleable{
         return "My Groups";
     }
 
-    
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(getActivity(),"Group Clicked: "+position,Toast.LENGTH_SHORT).show();
+        MyGroup myGroup = (MyGroup) parent.getItemAtPosition(position);
+        Intent intent = new Intent(getActivity(), GroupActivity.class);
+        intent.putExtra("gr", myGroup);
+        startActivity(intent);
+    }
 }
