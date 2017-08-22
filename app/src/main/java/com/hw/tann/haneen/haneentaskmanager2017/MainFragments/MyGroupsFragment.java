@@ -90,4 +90,6 @@ public class MyGroupsFragment extends Fragment implements Titleable{
     public String getTitle(){
         return "My Groups";
     }
+
+    
 }
